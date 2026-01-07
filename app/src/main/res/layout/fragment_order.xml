@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/black"
+    tools:context=".Fragments.Order">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/linearupper"
+        android:layout_height="wrap_content"
+        android:background="@color/yellow"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/toolbar1"
+            android:backgroundTint="@color/yellow"
+            android:layout_margin="10dp">
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrowl"
+                android:layout_marginRight="10dp"/>
+
+            <EditText
+                android:id="@+id/Orders"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:drawablePadding="10dp"
+                android:hint="Orders"
+                android:gravity="left"
+                android:padding="15dp"
+                android:background="@color/yellow"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+        </androidx.appcompat.widget.Toolbar>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:id="@+id/oderNo"
+        android:layout_height="wrap_content"
+        android:text="OOps! Order list is empty"
+        android:textSize="30sp"
+        android:textColor="@color/yellow"
+        android:layout_marginTop="300dp"
+        android:visibility="gone"
+        android:layout_marginLeft="30dp"/>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:id="@+id/recyclerOders"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/linearupper"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/admin25"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_marginTop="140dp"
+        android:contentDescription="Signup Animation"
+        android:visibility="gone"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/nocategory" />
+
+
+</RelativeLayout>

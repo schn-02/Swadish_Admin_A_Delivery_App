@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/add"
+        tools:context=".practice">
+
+
+
+
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/yellow"
+            android:layout_marginTop="20dp"
+            app:title="Add Product"
+            app:titleTextColor="@color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="@string/please_fill_product_details"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/yellow" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/productTitle"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:hint="@string/product_title"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/yellow"
+            android:textColorHint="@color/white"
+            android:paddingStart="20dp"
+            android:background="@drawable/bg_add_product" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            >
+
+            <EditText
+                android:layout_width="0dp"
+                android:id="@+id/Quantity"
+                android:layout_height="70dp"
+                android:textColor="@color/yellow"
+
+                android:inputType="number"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_add_product"
+                android:hint="Quantity(1 Kg, 1 Ltr)"
+                android:padding="10dp"
+                android:textColorHint="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <AutoCompleteTextView
+                android:id="@+id/unittt"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:focusableInTouchMode="true"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/yellow"
+
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:inputType="textAutoComplete"
+                android:background="@drawable/bg_add_product"
+                android:hint="unit"
+                android:padding="10dp"
+                android:textColorHint="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            >
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/admin23"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="140dp"
+                android:contentDescription="Signup Animation"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/loadingadd" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/Ruppees"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/yellow"
+
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_add_product"
+                android:hint="Price(in rupees)"
+                android:inputType="number"
+                android:padding="10dp"
+                android:textColorHint="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="0dp"
+                android:id="@+id/stock"
+                android:layout_height="70dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/yellow"
+
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_add_product"
+                android:hint="no.of Stock"
+                android:inputType="number"
+                android:padding="10dp"
+                android:textColorHint="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/admin2"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_marginTop="140dp"
+            android:contentDescription="Signup Animation"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/admin" />
+
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/productCategory"
+            android:inputType="text"
+            android:textColor="@color/yellow"
+
+            android:hint="Product Category"
+            android:focusableInTouchMode="true"
+
+            android:textColorHint="@color/white"
+            android:textStyle="bold"
+            android:background="@drawable/bg_add_product"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:paddingStart="20dp"
+            android:drawablePadding="10dp"
+
+            android:drawableLeft="@drawable/shapes1"/>
+
+
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:id="@+id/productTypee"
+            android:layout_height="50dp"
+            android:hint="Product Type"
+            android:inputType="text"
+            android:textColorHint="@color/white"
+            android:textStyle="bold"
+            android:textColor="@color/yellow"
+
+            android:focusableInTouchMode="true"
+            android:background="@drawable/bg_add_product"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:paddingStart="20dp"
+            android:drawablePadding="10dp"
+            android:drawableLeft="@drawable/shapes1"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="Please Select Some Images "
+                android:textColor="@color/yellow"
+                android:layout_weight="0.9"
+                android:textSize="20dp"
+                android:gravity="center"
+                android:layout_marginTop="20dp"/>
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="0dp"
+                android:layout_weight="0.1"
+                android:layout_marginRight="60dp"
+                android:layout_marginTop="20dp"
+                android:layout_height="wrap_content"
+                android:background="@color/black"
+                android:src="@drawable/picture1"/>
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/productRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+        <Button
+            android:id="@+id/AddProduct"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/grey"
+            android:text="@string/add_product"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
+</ScrollView>
+
+

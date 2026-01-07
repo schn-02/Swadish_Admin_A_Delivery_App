@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/slack"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/slack"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AdminBlinkit"
+        tools:targetApi="31">
+        <activity
+            android:name=".Splash.mainSplash"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".About.About"
+            android:exported="false" />
+        <activity
+            android:name=".Authentication.Signup"
+            android:exported="true">
+
+        </activity>
+        <activity
+            android:name=".Authentication.Signin"
+            android:exported="true" />
+        <activity
+            android:name=".Splash.Splash_Main"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" />
+    </application>
+
+</manifest>

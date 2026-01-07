@@ -1,0 +1,10 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.AdminBlinkit" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Disable BottomNavigationView item icon tinting -->
+        <item name="itemIconTint">@null</item>
+        <item name="itemTextColor">@null</item>
+    </style>
+
+    <style name="Theme.AdminBlinkit" parent="Base.Theme.AdminBlinkit" />
+</resources>
