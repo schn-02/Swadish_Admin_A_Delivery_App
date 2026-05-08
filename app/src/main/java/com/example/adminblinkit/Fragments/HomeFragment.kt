@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,95 +19,151 @@ import com.example.adminblinkit.Models.ProductModelHomeFragment
 import com.example.adminblinkit.Models.product
 import com.example.adminblinkit.R
 import com.example.adminblinkit.add_product_element
-import com.example.adminblinkit.viewModels.AdminViewModel
 import com.example.adminblinkit.databinding.FragmentHomeBinding
 import com.example.adminblinkit.databinding.SampleCustomAlertEditBinding
+import com.example.adminblinkit.viewModels.AdminViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.launch
 
-
-class HomeFragment : Fragment()
-{
-
+class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
-
     private val binding get() = _binding!!
-    private val viewModel = AdminViewModel()
-    val products = ArrayList<product>()
-    lateinit var database: FirebaseDatabase
-    lateinit var auth: FirebaseAuth
-    lateinit var adapter2: item_View_recyclerView_Adapter
 
+    private val viewModel = AdminViewModel()
+
+    private lateinit var database: FirebaseDatabase
+    private lateinit var auth: FirebaseAuth
+    private lateinit var adapter2: item_View_recyclerView_Adapter
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         database = FirebaseDatabase.getInstance()
         auth = FirebaseAuth.getInstance()
-        val recylerView = binding.recyclerHomeFragment
-        val list = ArrayList<ProductModelHomeFragment>()
-        list.add(ProductModelHomeFragment(R.drawable.all, "All"))
-        list.add(ProductModelHomeFragment(R.drawable.masala, "Masala"))
-        list.add(ProductModelHomeFragment(R.drawable.atta_rice, "Atta Rice & Dal"))
-        list.add(ProductModelHomeFragment(R.drawable.cold_and_juices, "Cold Drink & Juices"))
-        list.add(ProductModelHomeFragment(R.drawable.dairy_breakfast, "Dairy and Breakfast"))
-        list.add(ProductModelHomeFragment(R.drawable.dry_masala, "Dry Masala"))
-        list.add(ProductModelHomeFragment(R.drawable.chicken_meat, "Chicken Meat & Fish"))
-        list.add(ProductModelHomeFragment(R.drawable.instant_frozen, "Instant & Frozen Foods"))
-        list.add(ProductModelHomeFragment(R.drawable.sangam_milk, "sangam Milk"))
-        list.add(ProductModelHomeFragment(R.drawable.pharma_wellness, "Pharma & Wellness"))
-        list.add(ProductModelHomeFragment(R.drawable.sauce_spreads, "Sauces & Spreads"))
-        list.add(ProductModelHomeFragment(R.drawable.sweet_tooth, "Sweet Tooth"))
-        list.add(ProductModelHomeFragment(R.drawable.vegetable, "vegetables & Fruits"))
-        list.add(ProductModelHomeFragment(R.drawable.tea, "Tea"))
-        list.add(ProductModelHomeFragment(R.drawable.tea_coffee, "Tea Coffee & Health Drinks"))
-        list.add(ProductModelHomeFragment(R.drawable.munchies, "Munchies"))
-        list.add(ProductModelHomeFragment(R.drawable.organic_premium, "Organic & Premimum "))
-        list.add(ProductModelHomeFragment(R.drawable.pet_care, "Pet Care"))
-        list.add(ProductModelHomeFragment(R.drawable.baby, "Baby Care"))
-        list.add(ProductModelHomeFragment(R.drawable.bakery_biscuits, "Bakery & Biscuits"))
-        list.add(ProductModelHomeFragment(R.drawable.toned_milk, "Toned Milk"))
 
-        val adapter = ProductCategoryHomeFragmentAdapter(list, requireContext() ,::onClickedCategories)
-
-        recylerView.adapter = adapter
-        val lm = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        recylerView.layoutManager = lm
-
-        binding.search.addTextChangedListener(object:TextWatcher{
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-         }
-
-            override fun onTextChanged(Text: CharSequence?, p1: Int, p2: Int, p3: Int)
-            {
-                 val searchText = Text.toString().trim()
-                adapter2.filter.filter(searchText)
-
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-            }
-
-        })
+        setupCategoryRecyclerView()
+        setupProductRecyclerView()
+        setupSearch()
 
         getAllTheProducts("All")
 
         return binding.root
-
     }
 
+    private fun setupCategoryRecyclerView() {
+        val categoryList = ArrayList<ProductModelHomeFragment>()
 
+        categoryList.add(ProductModelHomeFragment(R.drawable.all, "All"))
+        categoryList.add(ProductModelHomeFragment(R.drawable.masala, "Masala"))
+        categoryList.add(ProductModelHomeFragment(R.drawable.atta_rice, "Atta Rice & Dal"))
+        categoryList.add(ProductModelHomeFragment(R.drawable.cold_and_juices, "Cold Drink & Juices"))
+        categoryList.add(ProductModelHomeFragment(R.drawable.dairy_breakfast, "Dairy and Breakfast"))
+        categoryList.add(ProductModelHomeFragment(R.drawable.dry_masala, "Dry Masala"))
+        categoryList.add(ProductModelHomeFragment(R.drawable.chicken_meat, "Chicken Meat & Fish"))
+        categoryList.add(ProductModelHomeFragment(R.drawable.instant_frozen, "Instant & Frozen Foods"))
+        categoryList.add(ProductModelHomeFragment(R.drawable.sangam_milk, "Sangam Milk"))
+        categoryList.add(ProductModelHomeFragment(R.drawable.pharma_wellness, "Pharma & Wellness"))
+        categoryList.add(ProductModelHomeFragment(R.drawable.sauce_spreads, "Sauces & Spreads"))
+        categoryList.add(ProductModelHomeFragment(R.drawable.sweet_tooth, "Sweet Tooth"))
+        categoryList.add(ProductModelHomeFragment(R.drawable.vegetable, "Vegetables & Fruits"))
+        categoryList.add(ProductModelHomeFragment(R.drawable.tea, "Tea"))
+        categoryList.add(ProductModelHomeFragment(R.drawable.tea_coffee, "Tea Coffee & Health Drinks"))
+        categoryList.add(ProductModelHomeFragment(R.drawable.munchies, "Munchies"))
+        categoryList.add(ProductModelHomeFragment(R.drawable.organic_premium, "Organic & Premium"))
+        categoryList.add(ProductModelHomeFragment(R.drawable.pet_care, "Pet Care"))
+        categoryList.add(ProductModelHomeFragment(R.drawable.baby, "Baby Care"))
+        categoryList.add(ProductModelHomeFragment(R.drawable.bakery_biscuits, "Bakery & Biscuits"))
+        categoryList.add(ProductModelHomeFragment(R.drawable.toned_milk, "Toned Milk"))
+
+        val categoryAdapter = ProductCategoryHomeFragmentAdapter(
+            categoryList,
+            requireContext(),
+            ::onClickedCategories
+        )
+
+        binding.recyclerHomeFragment.apply {
+            adapter = categoryAdapter
+            layoutManager = LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
+            isNestedScrollingEnabled = false
+        }
+    }
+
+    private fun setupProductRecyclerView() {
+        adapter2 = item_View_recyclerView_Adapter(::onEditClicked)
+
+        binding.recyclerHomeFragment2.apply {
+            adapter = adapter2
+            layoutManager = GridLayoutManager(requireContext(), 2)
+            isNestedScrollingEnabled = false
+        }
+    }
+
+    private fun setupSearch() {
+        binding.search.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(
+                s: CharSequence?,
+                start: Int,
+                count: Int,
+                after: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                text: CharSequence?,
+                start: Int,
+                before: Int,
+                count: Int
+            ) {
+                val searchText = text.toString().trim()
+                adapter2.filter.filter(searchText)
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
+    }
+
+    private fun onClickedCategories(category: ProductModelHomeFragment) {
+        binding.search.setText("")
+        getAllTheProducts(category.text)
+    }
+
+    private fun getAllTheProducts(text: String) {
+        showLoading()
+
+        lifecycleScope.launch {
+            viewModel.fetchallTheProducts(text).collect { productList ->
+
+                binding.shimmer.visibility = View.GONE
+
+                adapter2.differ.submitList(productList)
+                adapter2.original = ArrayList(productList)
+
+                if (productList.isEmpty()) {
+                    showEmpty()
+                } else {
+                    showProducts()
+                }
+            }
+        }
+    }
 
     private fun onEditClicked(product: product) {
+        val editProduct = SampleCustomAlertEditBinding.inflate(
+            LayoutInflater.from(requireContext())
+        )
 
-        val editProduct = SampleCustomAlertEditBinding.inflate(LayoutInflater.from(requireContext()))
         editProduct.apply {
-            // Initial values set karna
             productTitleedit.setText(product.productTitle)
             Quantityedit.setText(product.ProductQuantity)
             unitttedit.setText(product.ProductUnit)
@@ -117,9 +172,17 @@ class HomeFragment : Fragment()
             productCategoryedit.setText(product.productCategory)
             productTypeeedit.setText(product.productType)
 
-            // Edit button pe click karne se fields enable ho jayengi
-            editProduct.Edit.setOnClickListener {
-                Toast.makeText(requireContext(), "Edit Button Clicked", Toast.LENGTH_SHORT).show()
+            productCategoryedit.isEnabled = false
+            Quantityedit.isEnabled = false
+            unitttedit.isEnabled = false
+            Ruppeesedit.isEnabled = false
+            stockedit.isEnabled = false
+            productTypeeedit.isEnabled = false
+            productTitleedit.isEnabled = false
+
+            Edit.setOnClickListener {
+                Toast.makeText(requireContext(), "Edit mode enabled", Toast.LENGTH_SHORT).show()
+
                 productCategoryedit.isEnabled = true
                 Quantityedit.isEnabled = true
                 unitttedit.isEnabled = true
@@ -129,91 +192,94 @@ class HomeFragment : Fragment()
                 productTitleedit.isEnabled = true
             }
 
-            val unit = ArrayAdapter(requireContext(), R.layout.show_list, add_product_element.allUnitsProduct)
-            val type = ArrayAdapter(requireContext(), R.layout.show_list, add_product_element.allProductTypes)
-            val category = ArrayAdapter(requireContext(), R.layout.show_list, add_product_element.allProductCategory)
+            val unitAdapter = ArrayAdapter(
+                requireContext(),
+                R.layout.show_list,
+                add_product_element.allUnitsProduct
+            )
 
-            editProduct.unitttedit.setAdapter(unit)
-            editProduct.productTypeeedit.setAdapter(type)
-            editProduct.productCategoryedit.setAdapter(category)
+            val typeAdapter = ArrayAdapter(
+                requireContext(),
+                R.layout.show_list,
+                add_product_element.allProductTypes
+            )
+
+            val categoryAdapter = ArrayAdapter(
+                requireContext(),
+                R.layout.show_list,
+                add_product_element.allProductCategory
+            )
+
+            unitttedit.setAdapter(unitAdapter)
+            productTypeeedit.setAdapter(typeAdapter)
+            productCategoryedit.setAdapter(categoryAdapter)
 
             val alertDialog = AlertDialog.Builder(requireContext())
-                .setView(editProduct.root)
+                .setView(root)
                 .create()
-            alertDialog.show()
-            // Firebase reference define karna
-            val reference = database.getReference("Admin").child("ProductsDetails").child(product.productRandomId)
 
-            // Save button pe click karne ke baad updates map prepare karna aur Firebase me update karna
+            alertDialog.show()
+
+            val reference = database
+                .getReference("Admin")
+                .child("ProductsDetails")
+                .child(product.productRandomId)
+
             save.setOnClickListener {
                 val updates = hashMapOf<String, Any>(
-                    "productCategory" to productCategoryedit.text.toString(),
-                    "productPrice" to Ruppeesedit.text.toString(),
-                    "productQuantity" to Quantityedit.text.toString(),
-                    "productStock" to stockedit.text.toString(),
-                    "productTitle" to productTitleedit.text.toString(),
-                    "productType" to productTypeeedit.text.toString(),
-                    "productUnit" to unitttedit.text.toString()
+                    "productCategory" to productCategoryedit.text.toString().trim(),
+                    "productPrice" to Ruppeesedit.text.toString().trim(),
+                    "productQuantity" to Quantityedit.text.toString().trim(),
+                    "productStock" to stockedit.text.toString().trim(),
+                    "productTitle" to productTitleedit.text.toString().trim(),
+                    "productType" to productTypeeedit.text.toString().trim(),
+                    "productUnit" to unitttedit.text.toString().trim()
                 )
 
-                // Firebase me data update karna
-                reference.updateChildren(updates).addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        Toast.makeText(requireContext(), "Data Successfully Edited", Toast.LENGTH_SHORT).show()
+                reference.updateChildren(updates)
+                    .addOnSuccessListener {
+                        Toast.makeText(
+                            requireContext(),
+                            "Product updated successfully",
+                            Toast.LENGTH_SHORT
+                        ).show()
                         alertDialog.dismiss()
-                    } else {
-                        Toast.makeText(requireContext(), "Data Failed to Edit", Toast.LENGTH_SHORT).show()
                     }
-                }
+                    .addOnFailureListener {
+                        Toast.makeText(
+                            requireContext(),
+                            "Failed: ${it.message}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
             }
-
-            // AlertDialog create aur show karna
-
         }
     }
 
-
-    private  fun onClickedCategories(categories : ProductModelHomeFragment)
-     {
-        getAllTheProducts(categories.text)
-     }
-    private fun getAllTheProducts(text: String)
-    {
+    private fun showLoading() {
         binding.shimmer.visibility = View.VISIBLE
-        lifecycleScope.launch {
-            viewModel.fetchallTheProducts(text).collect{
+        binding.recyclerHomeFragment2.visibility = View.GONE
 
-                if (it.isEmpty())
-                {
-                    binding.recyclerHomeFragment2.visibility = View.GONE
-//                    binding.textNoProduct.visibility = View.VISIBLE
-                    binding.homelottie.visibility = View.VISIBLE
-                }
-                else
-                {
-                    binding.recyclerHomeFragment2.visibility = View.VISIBLE
-//                    binding.textNoProduct.visibility = View.GONE
-                    binding.homelottie.visibility = View.GONE
-
-                }
-
-
-
-
-                 adapter2 = item_View_recyclerView_Adapter(::onEditClicked)
-
-                binding.recyclerHomeFragment2.adapter= adapter2
-                binding.recyclerHomeFragment2.layoutManager = GridLayoutManager(context, 2)
-                adapter2.differ.submitList(it)
-                binding.shimmer.visibility = View.GONE
-                adapter2.original = it as ArrayList<product>
-
-
-
-
-            }
-        }
-
+        // Agar new XML use kiya hai jisme emptyStateCard hai
+        binding.emptyStateCard.visibility = View.GONE
     }
 
+    private fun showEmpty() {
+        binding.shimmer.visibility = View.GONE
+        binding.recyclerHomeFragment2.visibility = View.GONE
+
+        // New premium empty state card
+        binding.emptyStateCard.visibility = View.VISIBLE
+    }
+
+    private fun showProducts() {
+        binding.shimmer.visibility = View.GONE
+        binding.emptyStateCard.visibility = View.GONE
+        binding.recyclerHomeFragment2.visibility = View.VISIBLE
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

@@ -1,138 +1,256 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:background="@drawable/about222"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/about222">
 
-
-    <LinearLayout
-        android:id="@+id/linearprofile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+    <!-- Premium Dark Overlay -->
+    <View
+        android:id="@+id/darkOverlay"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#B802040A"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Top Soft Glow -->
+    <View
+        android:id="@+id/topGlow"
+        android:layout_width="230dp"
+        android:layout_height="230dp"
+        android:layout_marginTop="-100dp"
+        android:layout_marginEnd="-90dp"
+        android:alpha="0.45"
+        android:background="@drawable/bg_soft_glow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Compact Toolbar Card -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/linearprofile"
+        android:layout_width="0dp"
+        android:layout_height="68dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="14dp"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardCornerRadius="22dp"
+        app:cardElevation="10dp"
+        app:strokeColor="#22FFFFFF"
+        app:strokeWidth="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbarprofile"
             android:layout_width="match_parent"
-            android:layout_marginTop="40dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:backgroundTint="@color/black">
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_home_toolbar"
+            android:paddingStart="12dp"
+            android:paddingEnd="14dp">
 
-            <ImageView
-                android:id="@+id/backprofile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:src="@drawable/arrowl" />
-
-            <EditText
-                android:id="@+id/Profile"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginLeft="20dp"
-                android:drawablePadding="10dp"
-                android:gravity="left"
-                android:hint="Setting"
-                android:enabled="false"
-                android:padding="15dp"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/backprofile"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:background="@drawable/bg_profile_back_circle"
+                    android:contentDescription="Back"
+                    android:padding="10dp"
+                    android:src="@drawable/arrowl" />
+
+                <EditText
+                    android:id="@+id/Profile"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:enabled="false"
+                    android:focusable="false"
+                    android:hint="Settings"
+                    android:inputType="none"
+                    android:padding="0dp"
+                    android:singleLine="true"
+                    android:textColor="@android:color/white"
+                    android:textColorHint="@android:color/white"
+                    android:textSize="23sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="34dp"
+                    android:background="@drawable/bg_auth_tag"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp"
+                    android:text="Admin"
+                    android:textColor="#44F28C"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
 
         </androidx.appcompat.widget.Toolbar>
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="40dp"
-        android:orientation="vertical">
+    </com.google.android.material.card.MaterialCardView>
 
-        <TextView
-            android:id="@+id/Account"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
-            android:drawableLeft="@drawable/user1"
-            android:drawablePadding="20dp"
-            android:text="My Account"
-            android:textColor="@color/white"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+    <!-- Content -->
+    <ScrollView
+        android:id="@+id/profileScroll"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearprofile">
 
-
-
-        <TextView
-            android:id="@+id/info"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:drawableLeft="@drawable/notepad1"
-            android:drawablePadding="20dp"
-            android:gravity="center"
-            android:layout_marginLeft="100dp"
-            android:layout_marginRight="100dp"
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingTop="18dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="34dp">
 
+            <!-- Account Overview Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/accountCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@android:color/transparent"
+                app:cardCornerRadius="26dp"
+                app:cardElevation="12dp"
+                app:strokeColor="#22FFFFFF"
+                app:strokeWidth="1dp">
 
-            android:text="Your Information"
-            android:textColor="@color/yellow"
-            android:textSize="20sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_section_card_dark"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingStart="20dp"
+                    android:paddingTop="24dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="22dp">
 
+                    <TextView
+                        android:id="@+id/Account"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableTop="@drawable/user1"
+                        android:drawablePadding="12dp"
+                        android:gravity="center"
+                        android:text="My Account"
+                        android:textColor="@android:color/white"
+                        android:textSize="27sp"
+                        android:textStyle="bold" />
 
+                    <TextView
+                        android:id="@+id/info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@drawable/bg_image_button_premium"
+                        android:drawableStart="@drawable/notepad1"
+                        android:drawablePadding="10dp"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:paddingStart="18dp"
+                        android:paddingEnd="18dp"
+                        android:text="Your Information"
+                        android:textColor="#44F28C"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
 
+                </LinearLayout>
 
+            </com.google.android.material.card.MaterialCardView>
 
+            <!-- Section Title -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="12dp"
+                android:text="Account Settings"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/About"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:drawableLeft="@drawable/about"
-            android:drawableRight="@drawable/right1"
-            android:drawablePadding="20dp"
+            <!-- About Row -->
+            <TextView
+                android:id="@+id/About"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/bg_profile_menu_item_premium"
+                android:drawableStart="@drawable/about"
+                android:drawableEnd="@drawable/right1"
+                android:drawablePadding="16dp"
+                android:gravity="center_vertical"
+                android:paddingStart="18dp"
+                android:paddingEnd="18dp"
+                android:text="About"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-            android:text="About"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+            <!-- Delete Account Row -->
+            <TextView
+                android:id="@+id/deleteAccount"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_profile_menu_item_danger"
+                android:drawableStart="@drawable/delete1"
+                android:drawableEnd="@drawable/right1"
+                android:drawablePadding="16dp"
+                android:gravity="center_vertical"
+                android:paddingStart="18dp"
+                android:paddingEnd="18dp"
+                android:text="Delete Account"
+                android:textColor="#FF6B6B"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/deleteAccount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:drawableLeft="@drawable/delete1"
-            android:drawableRight="@drawable/right1"
-            android:drawablePadding="20dp"
+            <!-- Log Out Row -->
+            <TextView
+                android:id="@+id/LogOut"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_profile_menu_item_premium"
+                android:drawableStart="@drawable/logout1"
+                android:drawableEnd="@drawable/right1"
+                android:drawablePadding="16dp"
+                android:gravity="center_vertical"
+                android:paddingStart="18dp"
+                android:paddingEnd="18dp"
+                android:text="Log Out"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-            android:text="Delete Account"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+        </LinearLayout>
 
+    </ScrollView>
 
-
-        <TextView
-            android:id="@+id/LogOut"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:drawableLeft="@drawable/logout1"
-            android:drawableRight="@drawable/right1"
-            android:drawablePadding="20dp"
-
-            android:text="Log Out"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-
-    </LinearLayout>
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

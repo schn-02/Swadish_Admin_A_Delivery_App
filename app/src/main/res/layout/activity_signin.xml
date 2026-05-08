@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main2"
@@ -8,83 +9,192 @@
     android:background="@drawable/signin3"
     tools:context=".Authentication.Signin">
 
-
-    <EditText
-        android:id="@+id/enemail2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="enter email"
-        android:textColorHint="@color/white"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:inputType="textEmailAddress"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/enpass2"
+    <!-- Premium dark overlay -->
+    <View
+        android:id="@+id/overlay"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#A602040A"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/enpass2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="100dp"
-        android:textColorHint="@color/white"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:ems="10"
-        android:hint="enter password"
-        android:inputType="textPassword"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/signin"
+    <!-- Soft top glow -->
+    <View
+        android:id="@+id/topGlow"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        android:layout_marginTop="-90dp"
+        android:background="@drawable/bg_soft_glow"
+        android:alpha="0.55"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.428"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Loading Animation Center -->
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/admin2"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_marginTop="140dp"
-        android:contentDescription="Signup Animation"
+        android:layout_width="260dp"
+        android:layout_height="260dp"
+        android:contentDescription="Signin Loading Animation"
         android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/load" />
 
-    <TextView
-        android:id="@+id/dontaccount"
-        android:layout_width="wrap_content"
+    <!-- Main Login Card -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/loginCard"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:text="dont have  account "
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/signin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.944"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/signin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="300dp"
-        android:backgroundTint="@color/white"
-        android:text="Signin"
-        android:textStyle="bold"
-        android:textSize="20sp"
-
-        android:textColor="@color/black"
+        android:layout_marginStart="22dp"
+        android:layout_marginEnd="22dp"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardCornerRadius="26dp"
+        app:cardElevation="14dp"
+        app:strokeColor="#22FFFFFF"
+        app:strokeWidth="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.377"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_login_card_premium"
+            android:orientation="vertical"
+            android:paddingStart="24dp"
+            android:paddingTop="28dp"
+            android:paddingEnd="24dp"
+            android:paddingBottom="24dp">
+
+            <!-- Small Tag -->
+            <TextView
+                android:id="@+id/adminTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/bg_auth_tag"
+                android:includeFontPadding="false"
+                android:paddingHorizontal="14dp"
+                android:paddingVertical="7dp"
+                android:text="ADMIN PANEL"
+                android:textColor="#44F28C"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <!-- Title -->
+            <TextView
+                android:id="@+id/titleSignin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:text="Welcome Back"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/subtitleSignin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:text="Sign in to manage your store orders"
+                android:textAlignment="center"
+                android:textColor="#AEB9D6"
+                android:textSize="14sp" />
+
+            <!-- Email Label -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:text="Email Address"
+                android:textColor="#DDE6FF"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <!-- Email -->
+            <EditText
+                android:id="@+id/enemail2"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_input_field_premium"
+                android:gravity="center_vertical"
+                android:hint="Enter email"
+                android:inputType="textEmailAddress"
+                android:paddingStart="18dp"
+                android:paddingEnd="18dp"
+                android:singleLine="true"
+                android:textColor="@android:color/white"
+                android:textColorHint="#7F8BAA"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <!-- Password Label -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="17dp"
+                android:text="Password"
+                android:textColor="#DDE6FF"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <!-- Password -->
+            <EditText
+                android:id="@+id/enpass2"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_input_field_premium"
+                android:gravity="center_vertical"
+                android:hint="Enter password"
+                android:inputType="textPassword"
+                android:paddingStart="18dp"
+                android:paddingEnd="18dp"
+                android:singleLine="true"
+                android:textColor="@android:color/white"
+                android:textColorHint="#7F8BAA"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <!-- Signin Button -->
+            <Button
+                android:id="@+id/signin"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="26dp"
+                android:background="@drawable/bg_signin_button_premium"
+                android:elevation="6dp"
+                android:text="Sign In"
+                android:textAllCaps="false"
+                android:textColor="#04120B"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <!-- Signup Text -->
+            <TextView
+                android:id="@+id/dontaccount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="Don't have an account? Sign Up"
+                android:textColor="#DDE6FF"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

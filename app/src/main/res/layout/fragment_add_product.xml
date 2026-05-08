@@ -1,259 +1,460 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <!-- Main Content -->
+    <ScrollView
+        android:id="@+id/mainContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@drawable/add"
-        tools:context=".practice">
-
-
-
-
-
-        <androidx.appcompat.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/yellow"
-            android:layout_marginTop="20dp"
-            app:title="Add Product"
-            app:titleTextColor="@color/white" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:text="@string/please_fill_product_details"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/yellow" />
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/productTitle"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:hint="@string/product_title"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:textColor="@color/yellow"
-            android:textColorHint="@color/white"
-            android:paddingStart="20dp"
-            android:background="@drawable/bg_add_product" />
-
+        android:background="@drawable/bg_main_dark"
+        android:fillViewport="true"
+        android:overScrollMode="never">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal"
-            >
+            android:orientation="vertical"
+            android:paddingStart="14dp"
+            android:paddingTop="12dp"
+            android:paddingEnd="14dp"
+            android:paddingBottom="110dp">
 
-            <EditText
-                android:layout_width="0dp"
-                android:id="@+id/Quantity"
-                android:layout_height="70dp"
-                android:textColor="@color/yellow"
-
-                android:inputType="number"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_add_product"
-                android:hint="Quantity(1 Kg, 1 Ltr)"
-                android:padding="10dp"
-                android:textColorHint="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <AutoCompleteTextView
-                android:id="@+id/unittt"
-                android:layout_width="0dp"
-                android:layout_height="70dp"
-                android:focusableInTouchMode="true"
-                android:layout_marginLeft="10dp"
-                android:textColor="@color/yellow"
-
-                android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:inputType="textAutoComplete"
-                android:background="@drawable/bg_add_product"
-                android:hint="unit"
-                android:padding="10dp"
-                android:textColorHint="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal"
-            >
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/admin23"
+            <!-- Top Toolbar -->
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginTop="140dp"
-                android:contentDescription="Signup Animation"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:lottie_autoPlay="true"
-                app:lottie_loop="true"
-                app:lottie_rawRes="@raw/loadingadd" />
+                android:layout_height="64dp"
+                app:cardBackgroundColor="@android:color/transparent"
+                app:cardCornerRadius="22dp"
+                app:cardElevation="10dp"
+                app:strokeColor="#22FFFFFF"
+                app:strokeWidth="1dp">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/Ruppees"
-                android:layout_width="0dp"
-                android:layout_height="70dp"
-                android:layout_marginLeft="10dp"
-                android:textColor="@color/yellow"
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/addProductToolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_home_toolbar"
+                    android:paddingStart="18dp"
+                    android:paddingEnd="18dp"
+                    app:title="Add Product"
+                    app:titleTextColor="@android:color/white" />
 
-                android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_add_product"
-                android:hint="Price(in rupees)"
-                android:inputType="number"
-                android:padding="10dp"
-                android:textColorHint="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+            </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="0dp"
-                android:id="@+id/stock"
-                android:layout_height="70dp"
-                android:layout_marginLeft="10dp"
-                android:textColor="@color/yellow"
-
-                android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_add_product"
-                android:hint="no.of Stock"
-                android:inputType="number"
-                android:padding="10dp"
-                android:textColorHint="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/admin2"
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:layout_marginTop="140dp"
-            android:contentDescription="Signup Animation"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/admin" />
-
-        <AutoCompleteTextView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:id="@+id/productCategory"
-            android:inputType="text"
-            android:textColor="@color/yellow"
-
-            android:hint="Product Category"
-            android:focusableInTouchMode="true"
-
-            android:textColorHint="@color/white"
-            android:textStyle="bold"
-            android:background="@drawable/bg_add_product"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:paddingStart="20dp"
-            android:drawablePadding="10dp"
-
-            android:drawableLeft="@drawable/shapes1"/>
-
-
-        <AutoCompleteTextView
-            android:layout_width="match_parent"
-            android:id="@+id/productTypee"
-            android:layout_height="50dp"
-            android:hint="Product Type"
-            android:inputType="text"
-            android:textColorHint="@color/white"
-            android:textStyle="bold"
-            android:textColor="@color/yellow"
-
-            android:focusableInTouchMode="true"
-            android:background="@drawable/bg_add_product"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:paddingStart="20dp"
-            android:drawablePadding="10dp"
-            android:drawableLeft="@drawable/shapes1"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="0dp"
+            <!-- Header -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:text="Please Select Some Images "
-                android:textColor="@color/yellow"
-                android:layout_weight="0.9"
-                android:textSize="20dp"
-                android:gravity="center"
-                android:layout_marginTop="20dp"/>
+                android:layout_marginTop="18dp"
+                android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/imageButton"
-                android:layout_width="0dp"
-                android:layout_weight="0.1"
-                android:layout_marginRight="60dp"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Create Product"
+                    android:textColor="@android:color/white"
+                    android:textSize="26sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/please_fill_product_details"
+                    android:textColor="#9AA7C7"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <!-- Section 1: Basic Details -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/basicDetailsCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                app:cardBackgroundColor="@android:color/transparent"
+                app:cardCornerRadius="22dp"
+                app:cardElevation="8dp"
+                app:strokeColor="#22FFFFFF"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_section_card_dark"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Basic Details"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:text="Product name, category and type"
+                        android:textColor="#9AA7C7"
+                        android:textSize="12sp" />
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/productTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@drawable/bg_input_field_premium"
+                        android:gravity="center_vertical"
+                        android:hint="@string/product_title"
+                        android:inputType="textCapWords"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:singleLine="true"
+                        android:textColor="@android:color/white"
+                        android:textColorHint="#7F8BAA"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <AutoCompleteTextView
+                        android:id="@+id/productCategory"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:layout_marginTop="12dp"
+                        android:background="@drawable/bg_input_field_premium"
+                        android:drawableStart="@drawable/shapes1"
+                        android:drawablePadding="10dp"
+                        android:gravity="center_vertical"
+                        android:hint="Product Category"
+                        android:inputType="text"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:singleLine="true"
+                        android:textColor="@android:color/white"
+                        android:textColorHint="#7F8BAA"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <AutoCompleteTextView
+                        android:id="@+id/productTypee"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:layout_marginTop="12dp"
+                        android:background="@drawable/bg_input_field_premium"
+                        android:drawableStart="@drawable/shapes1"
+                        android:drawablePadding="10dp"
+                        android:gravity="center_vertical"
+                        android:hint="Product Type"
+                        android:inputType="text"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:singleLine="true"
+                        android:textColor="@android:color/white"
+                        android:textColorHint="#7F8BAA"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Section 2: Pricing and Stock -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/pricingStockCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                app:cardBackgroundColor="@android:color/transparent"
+                app:cardCornerRadius="22dp"
+                app:cardElevation="8dp"
+                app:strokeColor="#22FFFFFF"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_section_card_dark"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pricing &amp; Stock"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:text="Quantity, unit, price and stock"
+                        android:textColor="#9AA7C7"
+                        android:textSize="12sp" />
+
+                    <!-- Quantity + Unit -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/Quantity"
+                            android:layout_width="0dp"
+                            android:layout_height="54dp"
+                            android:layout_marginEnd="6dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_input_field_premium"
+                            android:gravity="center_vertical"
+                            android:hint="Quantity"
+                            android:inputType="numberDecimal"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:singleLine="true"
+                            android:textColor="@android:color/white"
+                            android:textColorHint="#7F8BAA"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <AutoCompleteTextView
+                            android:id="@+id/unittt"
+                            android:layout_width="0dp"
+                            android:layout_height="54dp"
+                            android:layout_marginStart="6dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_input_field_premium"
+                            android:gravity="center_vertical"
+                            android:hint="Unit"
+                            android:inputType="text"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:singleLine="true"
+                            android:textColor="@android:color/white"
+                            android:textColorHint="#7F8BAA"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <!-- Price + Stock -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/Ruppees"
+                            android:layout_width="0dp"
+                            android:layout_height="54dp"
+                            android:layout_marginEnd="6dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_input_field_premium"
+                            android:gravity="center_vertical"
+                            android:hint="Price ₹"
+                            android:inputType="numberDecimal"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:singleLine="true"
+                            android:textColor="@android:color/white"
+                            android:textColorHint="#7F8BAA"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/stock"
+                            android:layout_width="0dp"
+                            android:layout_height="54dp"
+                            android:layout_marginStart="6dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_input_field_premium"
+                            android:gravity="center_vertical"
+                            android:hint="Stock"
+                            android:inputType="number"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:singleLine="true"
+                            android:textColor="@android:color/white"
+                            android:textColorHint="#7F8BAA"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Section 3: Images -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/productImagesCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                app:cardBackgroundColor="@android:color/transparent"
+                app:cardCornerRadius="22dp"
+                app:cardElevation="8dp"
+                app:strokeColor="#22FFFFFF"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_section_card_dark"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Product Images"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:text="Add clear images for better visibility"
+                        android:textColor="#9AA7C7"
+                        android:textSize="12sp" />
+
+                    <!-- Image Picker Row -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="68dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@drawable/bg_image_picker_premium"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="12dp">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Choose Photos"
+                                android:textColor="@android:color/white"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:text="Tap the icon to select images"
+                                android:textColor="#9AA7C7"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+
+                        <ImageButton
+                            android:id="@+id/imageButton"
+                            android:layout_width="46dp"
+                            android:layout_height="46dp"
+                            android:background="@drawable/bg_image_button_premium"
+                            android:contentDescription="Select product images"
+                            android:padding="10dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/picture1" />
+
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/productRecycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:orientation="horizontal"
+                        android:overScrollMode="never"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Bottom Action Button -->
+            <Button
+                android:id="@+id/AddProduct"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
                 android:layout_marginTop="20dp"
-                android:layout_height="wrap_content"
-                android:background="@color/black"
-                android:src="@drawable/picture1"/>
+                android:background="@drawable/bg_signin_button_premium"
+                android:elevation="6dp"
+                android:text="@string/add_product"
+                android:textAllCaps="false"
+                android:textColor="#04120B"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/productRecycler"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+    </ScrollView>
 
-        <Button
-            android:id="@+id/AddProduct"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+    <!-- Loader Overlay -->
+    <FrameLayout
+        android:id="@+id/loaderOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#B002040A"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="190dp"
+            android:layout_height="190dp"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:backgroundTint="@color/grey"
-            android:text="@string/add_product"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="28dp"
+            app:cardElevation="14dp"
+            app:strokeColor="#22FFFFFF"
+            app:strokeWidth="1dp">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_section_card_dark"
+                android:gravity="center"
+                android:orientation="vertical">
 
-    </LinearLayout>
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/admin23"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:contentDescription="Loading Animation"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/loadingadd" />
 
-</ScrollView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Adding..."
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
+            </LinearLayout>
 
+        </com.google.android.material.card.MaterialCardView>
+
+    </FrameLayout>
+
+</FrameLayout>

@@ -1,31 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/sample_add_product"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="130dp"
+    android:layout_height="140dp"
     android:layout_margin="10dp"
-    android:background="#040404">
+    app:cardCornerRadius="18dp"
+    app:cardElevation="8dp"
+    app:strokeColor="#22FFFFFF"
+    app:strokeWidth="1dp">
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#111111"
+        android:padding="8dp">
 
-        <ImageView
-            android:id="@+id/product"
-            android:layout_width="110dp"
-            android:layout_height="100dp"
-            android:scaleType="fitXY"
-            app:srcCompat="@drawable/picture2" />
+        <!-- Product Image Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/imageContainer"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:cardCornerRadius="14dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/Remove"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="-13dp"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="0dp"
-            android:layout_toEndOf="@+id/product"
-            app:srcCompat="@drawable/remove" />
-    </RelativeLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/product"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:contentDescription="Product image"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/picture2"
+                tools:src="@drawable/picture2" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Remove Button -->
+        <!-- Remove Button -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/removeContainer"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="50dp"
+            app:cardElevation="0dp"
+            app:layout_constraintEnd_toEndOf="@+id/imageContainer"
+            app:layout_constraintTop_toTopOf="@+id/imageContainer"
+            android:translationX="8dp"
+            android:translationY="-8dp">
+
+            <ImageView
+                android:id="@+id/Remove"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:contentDescription="Remove product"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/remove" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

@@ -9,135 +9,193 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.adminblinkit.Adapters.Orders_Adapter
 import com.example.adminblinkit.Models.product
-import com.example.adminblinkit.R
-import com.example.adminblinkit.databinding.FragmentAddProductBinding
 import com.example.adminblinkit.databinding.FragmentOrderBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import kotlin.time.times
-
+import com.google.firebase.database.*
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class Order : Fragment() {
+
     private var _binding: FragmentOrderBinding? = null
+    private val binding get() = _binding!!
+
     private lateinit var database: DatabaseReference
     private lateinit var auth: FirebaseAuth
     private lateinit var adapter: Orders_Adapter
     private lateinit var dataList: ArrayList<product>
-    private val binding get() = _binding!!
+
+    private var ordersListener: ValueEventListener? = null
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentOrderBinding.inflate(inflater, container, false)
-        dataList = ArrayList()
-        adapter = Orders_Adapter(requireContext(), dataList)
-        binding.recyclerOders.adapter = adapter
-        binding.recyclerOders.layoutManager = LinearLayoutManager(requireContext())
+
         auth = FirebaseAuth.getInstance()
 
-        binding.admin25.visibility = View.VISIBLE
+        dataList = ArrayList()
+        adapter = Orders_Adapter(requireContext(), dataList)
 
-        val uid = FirebaseAuth.getInstance().currentUser?.uid
+        binding.recyclerOders.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerOders.adapter = adapter
+
+        showLoading()
+
+        val uid = auth.currentUser?.uid
         if (uid == null) {
             Toast.makeText(requireContext(), "User not logged in!", Toast.LENGTH_SHORT).show()
+            showEmpty()
             return binding.root
         }
 
-        database = FirebaseDatabase.getInstance().reference
-            .child("All_users").child("users")
+        database = FirebaseDatabase.getInstance()
+            .reference
+            .child("All_users")
+            .child("users")
 
         fetchDataFromFirebase()
+
         return binding.root
     }
 
     private fun fetchDataFromFirebase() {
-        val userOrderList = mutableListOf<product>() // Temporary list to store fetched data
 
-        database.addValueEventListener(object : ValueEventListener {
+        ordersListener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+
+                val userOrderList = ArrayList<product>()
+
                 if (!snapshot.exists()) {
-                    showToast("No orders found!")
-                    binding.admin25.visibility = View.VISIBLE // Show no products view if no data found
+                    dataList.clear()
+                    adapter.notifyDataSetChanged()
+                    showEmpty()
                     return
                 }
 
-                var orderCount = 0 // Counter to track when all orders have been fetched
+                val currentAdminUid = auth.currentUser?.uid
 
                 for (userSnapshot in snapshot.children) {
-                    val userUID = userSnapshot.key
-                    val userOrderRef = database.child(userUID!!).child("userODERS")
 
-                    userOrderRef.addListenerForSingleValueEvent(object : ValueEventListener {
-                        override fun onDataChange(orderSnapshot: DataSnapshot) {
-                            for (orderData in orderSnapshot.children) {
-                                val adminUID = orderData.child("AdminUID").getValue(String::class.java)
-                                if (adminUID == auth.currentUser?.uid) {
-                                    // Extract product details
-                                    val product = createProductFromSnapshot(orderData)
-                                    product?.let { userOrderList.add(it) }
-                                }
-                            }
+                    val userOrdersSnapshot = userSnapshot.child("userODERS")
 
-                            orderCount++
-                            if (orderCount.toLong() == snapshot.childrenCount) {
-                                if (userOrderList.isEmpty()) {
-                                    binding.admin25.visibility = View.VISIBLE // Show no products view if list is empty
-                                } else {
-                                    binding.admin25.visibility = View.GONE // Hide no products view if there are orders
-//                                    updateRecyclerView(userOrderList)
-                                    dataList.clear()
-                                            dataList.addAll(userOrderList)
-        adapter.notifyDataSetChanged()
+                    for (orderData in userOrdersSnapshot.children) {
 
-                                }
+                        val adminUID = orderData.child("AdminUID").getValue(String::class.java)
+
+                        if (adminUID == currentAdminUid) {
+                            val orderProduct = createProductFromSnapshot(orderData)
+
+                            if (orderProduct != null) {
+                                userOrderList.add(orderProduct)
                             }
                         }
+                    }
+                }
 
-                        override fun onCancelled(error: DatabaseError) {
-                            showToast("Failed to load user orders: ${error.message}")
-                        }
-                    })
+                dataList.clear()
+                dataList.addAll(userOrderList)
+                adapter.notifyDataSetChanged()
+
+                if (dataList.isEmpty()) {
+                    showEmpty()
+                } else {
+                    showOrders()
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
-                showToast("Failed to load data: ${error.message}")
-                binding.admin25.visibility = View.VISIBLE // Show no products view on error as well
+                Toast.makeText(
+                    requireContext(),
+                    "Failed to load data: ${error.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
+                showEmpty()
             }
-        })
+        }
+
+        database.addValueEventListener(ordersListener as ValueEventListener)
     }
 
     private fun createProductFromSnapshot(orderData: DataSnapshot): product? {
+
         val productName = orderData.child("productName").getValue(String::class.java)
         val productPrice = orderData.child("productPrice").getValue(String::class.java)
-        val productDate = orderData.child("productData").getValue(String::class.java)
         val productItemCount = orderData.child("productCount").getValue(Int::class.java)?.toString() ?: "0"
-        val status = orderData.child("Status").getValue(String::class.java)
+        val status = orderData.child("Status").getValue(String::class.java) ?: "Waiting"
+
+        var productDate = orderData.child("productData").getValue(String::class.java)
+
+        // Agar order me date missing hai, to current date Firebase me set kar do
+        if (productDate.isNullOrEmpty()) {
+            productDate = getCurrentDateTime()
+
+            orderData.ref.child("productData")
+                .setValue(productDate)
+                .addOnFailureListener {
+                    Toast.makeText(
+                        requireContext(),
+                        "Date set failed: ${it.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+        }
 
         val price = productPrice?.toDoubleOrNull() ?: 0.0
-        val totalPrice = price * productItemCount.toDouble()
+        val count = productItemCount.toDoubleOrNull() ?: 0.0
+        val totalPrice = price * count
 
         return product(
-            productTitle = productName,
+            productTitle = productName ?: "No title",
             productPrice = totalPrice.toString(),
             itemCount = productItemCount,
-            dateTime = productDate ?: "",
+            dateTime = productDate,
             Status = status
         )
     }
 
-//    private fun updateRecyclerView(userOrderList: List<product>) {
-//        dataList.clear()
-//        dataList.addAll(userOrderList)
-//        adapter.notifyDataSetChanged()
-//    }
+    private fun getCurrentDateTime(): String {
+        val dateFormat = SimpleDateFormat(
+            "dd MMM yyyy, hh:mm a",
+            Locale.getDefault()
+        )
 
-    private fun showToast(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        return dateFormat.format(Date())
+    }
+
+    private fun showLoading() {
+        binding.recyclerOders.visibility = View.GONE
+        binding.emptyOrderLayout.visibility = View.VISIBLE
+
+        binding.admin25.visibility = View.VISIBLE
+        binding.oderNo.visibility = View.VISIBLE
+        binding.oderNo.text = "Loading orders..."
+    }
+
+    private fun showEmpty() {
+        binding.recyclerOders.visibility = View.GONE
+        binding.emptyOrderLayout.visibility = View.VISIBLE
+
+        binding.admin25.visibility = View.VISIBLE
+        binding.oderNo.visibility = View.VISIBLE
+        binding.oderNo.text = "No orders found"
+    }
+
+    private fun showOrders() {
+        binding.emptyOrderLayout.visibility = View.GONE
+        binding.recyclerOders.visibility = View.VISIBLE
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        ordersListener?.let {
+            database.removeEventListener(it)
+        }
+
+        _binding = null
     }
 }

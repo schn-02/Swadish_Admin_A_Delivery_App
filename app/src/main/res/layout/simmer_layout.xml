@@ -1,183 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:shimmer="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearViewPager"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="12dp"
+    android:layout_marginVertical="10dp"
+    android:baselineAligned="false"
     android:orientation="horizontal"
-    android:layout_margin="10dp"
-    android:layout_height="wrap_content">
+    android:weightSum="2">
 
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <!-- Shimmer Card 1 -->
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="6dp"
         android:layout_weight="1"
-        android:orientation="vertical">
+        app:cardBackgroundColor="#121212"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="6dp"
+        app:strokeColor="#18FFFFFF"
+        app:strokeWidth="1dp">
+
         <com.facebook.shimmer.ShimmerFrameLayout
-            android:layout_width="match_parent"
             android:id="@+id/simmer"
-            android:layout_height="match_parent">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:shimmer_auto_start="true"
+            app:shimmer_duration="1200">
 
-
-            <com.denzcoskun.imageslider.ImageSlider
-                android:id="@+id/imageslider"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_margin="10dp"
-                android:background="#99999E"
-                app:iss_auto_cycle="true"
-                app:iss_text_align="center" />
-
-            <TextView
-            android:layout_width="match_parent"
-            android:id="@+id/showProductName"
-            android:layout_height="wrap_content"
-            android:background="#99999E"
-            android:textStyle="bold"
-            android:textSize="18sp"/>
-        <TextView
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/showProductUnit"
-            android:layout_margin="10dp"
-            android:textSize="10sp"
-            android:background="#99999E"
-            android:textStyle="bold"/>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="-10dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
-
-            <TextView
-                android:id="@+id/showProductPrice"
-                android:layout_width="40dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_marginBottom="28dp"
-                android:gravity="start"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:background="#99999E"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/showProductEdit"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:orientation="vertical"
+                android:padding="10dp">
 
-            <TextView
-                android:id="@+id/showProductEdit"
-                android:layout_width="200dp"
-                android:layout_height="30dp"
-                android:layout_margin="10dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/bg_show_item_view_home"
-                android:gravity="center"
+                <!-- Image Placeholder -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:background="@drawable/bg_shimmer_rounded" />
 
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:backgroundTint="#99999E"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent" />
+                <!-- Product Name Placeholder -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="18dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/bg_shimmer_rounded" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <View
+                    android:layout_width="70dp"
+                    android:layout_height="16dp"
+                    android:layout_marginTop="7dp"
+                    android:background="@drawable/bg_shimmer_rounded" />
+
+                <!-- Unit Placeholder -->
+                <View
+                    android:layout_width="55dp"
+                    android:layout_height="14dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_shimmer_rounded" />
+
+                <!-- Price + Badge Placeholder -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="58dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/bg_shimmer_rounded" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1" />
+
+                    <View
+                        android:layout_width="64dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/bg_shimmer_pill" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
         </com.facebook.shimmer.ShimmerFrameLayout>
 
+    </com.google.android.material.card.MaterialCardView>
 
+    <!-- Shimmer Card 2 -->
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_weight="1"
+        app:cardBackgroundColor="#121212"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="6dp"
+        app:strokeColor="#18FFFFFF"
+        app:strokeWidth="1dp">
 
-
-    </LinearLayout>
-        <LinearLayout
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/simmer2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:layout_width="match_parent"
-                android:id="@+id/simmer2"
-                android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            app:shimmer_auto_start="true"
+            app:shimmer_duration="1200">
 
-            <com.denzcoskun.imageslider.ImageSlider
-                android:id="@+id/imageslider1"
-                android:layout_width="match_parent"
-                app:iss_auto_cycle="true"
-                android:background="#99999E"
-                android:layout_margin="10dp"
-                app:iss_text_align="center"
-                android:layout_height="200dp"/>
-
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:id="@+id/showProductName1"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="#99999E"
-                android:textStyle="bold"
-                android:textSize="18sp"/>
-            <TextView
-                android:layout_width="30dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/showProductUnit1"
-                android:layout_margin="10dp"
-                android:textSize="10sp"
-                android:background="#99999E"
-                android:textStyle="bold"/>
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="-10dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:orientation="vertical"
+                android:padding="10dp">
 
-                <TextView
-                    android:id="@+id/showProductPrice1"
-                    android:layout_width="40dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_marginBottom="28dp"
-                    android:gravity="start"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:background="#99999E"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/showProductEdit1"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent" />
+                <!-- Image Placeholder -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:background="@drawable/bg_shimmer_rounded" />
 
-                <TextView
-                    android:id="@+id/showProductEdit1"
-                    android:layout_width="200dp"
-                    android:layout_height="30dp"
-                    android:layout_margin="10dp"
-                    android:layout_marginBottom="8dp"
+                <!-- Product Name Placeholder -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="18dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/bg_shimmer_rounded" />
+
+                <View
+                    android:layout_width="70dp"
+                    android:layout_height="16dp"
+                    android:layout_marginTop="7dp"
+                    android:background="@drawable/bg_shimmer_rounded" />
+
+                <!-- Unit Placeholder -->
+                <View
+                    android:layout_width="55dp"
+                    android:layout_height="14dp"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/bg_show_item_view_home"
-                    android:gravity="center"
+                    android:background="@drawable/bg_shimmer_rounded" />
 
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:backgroundTint="#99999E"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent" />
+                <!-- Price + Badge Placeholder -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
+                    <View
+                        android:layout_width="58dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/bg_shimmer_rounded" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1" />
 
-            </com.facebook.shimmer.ShimmerFrameLayout>
+                    <View
+                        android:layout_width="64dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/bg_shimmer_pill" />
 
+                </LinearLayout>
 
-        </LinearLayout>
+            </LinearLayout>
 
+        </com.facebook.shimmer.ShimmerFrameLayout>
 
+    </com.google.android.material.card.MaterialCardView>
 
 </LinearLayout>
