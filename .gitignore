@@ -13,3 +13,9 @@
 .externalNativeBuild
 .cxx
 local.properties
+echo app/google-services.json >> .gitignore
+echo google-services.json >> .gitignore
+echo *.jks >> .gitignore
+echo *.keystore >> .gitignore
+echo .env >> .gitignore
+echo .env.* >> .gitignore
